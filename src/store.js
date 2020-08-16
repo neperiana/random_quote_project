@@ -6,8 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
-
-function configureStore(initialState = {message: ['hola']}) {
+function configureStore(initialState = {quotes: [], quote: {}}) {
   return createStore(
     rootReducer,
     initialState,
