@@ -3,9 +3,11 @@
  src/actions/types.js
 */
 
-const REFRESH = "REFRESH";
+const NEW = "NEW";
+const FETCH = "FETCH";
 
 const types = {
-    REFRESH,
+    NEW,
+    FETCH
 };
 export default types
