@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/rootReducer';
 
 
-function configureStore(initialState = {message: ['hola']}) {
+function configureStore(initialState = {quote: ''}) {
   return createStore(
     rootReducer,
     initialState,
