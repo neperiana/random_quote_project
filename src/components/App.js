@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { changeQuote } from '../actions/changeQuote';
 import { initialiseQuotes } from '../actions/initialiseQuotes';
 
-import logo from '../logo.svg';
 import './App.css';
 
 const config = {
@@ -65,10 +64,14 @@ class Container extends Component {
   }
 
   handleQuoteRefresh() {
-    console.log('hANDLING refresh');
-    console.log(this.props.quotes);
     let random_index = this.getRandomInt(this.props.quotes.length);
-    this.props.refreshQuote(this.props.quotes[random_index]);
+    let quoteCandidate = this.props.quotes[random_index];
+
+    if(! quoteCandidate.author) {
+      quoteCandidate.author = 'Anonymous';
+    }; 
+
+    this.props.refreshQuote(quoteCandidate);
   }
 
   componentDidMount() {
@@ -78,9 +81,20 @@ class Container extends Component {
   render() {
     return (
       <div className="App">
-        <p>"{this.props.quote.text}"</p>
-        <p>{this.props.quote.author}</p>
-        <button onClick={this.handleQuoteRefresh}>Refresh</button>
+        <div className="Container">
+          <div className="Quote">
+          <div className="openingQuote"><svg id="svgQuotes" height="50" viewBox="0 0 409.294 409.294" width="50" xmlns="http://www.w3.org/2000/svg"><path d="m0 204.647v175.412h175.412v-175.412h-116.941c0-64.48 52.461-116.941 116.941-116.941v-58.471c-96.728 0-175.412 78.684-175.412 175.412z"/><path d="m409.294 87.706v-58.471c-96.728 0-175.412 78.684-175.412 175.412v175.412h175.412v-175.412h-116.941c0-64.48 52.461-116.941 116.941-116.941z"/></svg></div>
+            <p className="quoteText">"{this.props.quote.text}"</p>
+            <div className="closingQuote"><svg id="svgQuotes" height="50" viewBox="0 0 409.294 409.294" width="50" xmlns="http://www.w3.org/2000/svg"><path d="m233.882 29.235v175.412h116.941c0 64.48-52.461 116.941-116.941 116.941v58.471c96.728 0 175.412-78.684 175.412-175.412v-175.412z"/><path d="m0 204.647h116.941c0 64.48-52.461 116.941-116.941 116.941v58.471c96.728 0 175.412-78.684 175.412-175.412v-175.412h-175.412z"/></svg></div>
+            <p className="quoteAuthor">{this.props.quote.author}</p>
+          </div>
+          <div className="QuoteFooter">
+            <button className="btn-default" onClick={this.handleQuoteRefresh}>Refresh</button>
+          </div>
+        </div>
+        <div className="Footer">
+          <p>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+        </div>
       </div>
     );
   }
