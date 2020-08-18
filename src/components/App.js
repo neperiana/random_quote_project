@@ -78,11 +78,6 @@ class Container extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <h2>Quote:</h2>
         <p>"{this.props.quote.text}"</p>
         <p>{this.props.quote.author}</p>
         <button onClick={this.handleQuoteRefresh}>Refresh</button>
