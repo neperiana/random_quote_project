@@ -7,6 +7,7 @@ import './App.css';
 
 // Bootstrap components
 import Button from 'react-bootstrap/Button';
+import { FaTwitter } from 'react-icons/fa'; 
 
 // Actions
 import { changeQuote } from '../actions/changeQuote';
@@ -75,13 +76,24 @@ class Container extends Component {
     if(! quoteCandidate.author) {
       quoteCandidate.author = 'Anonymous';
     };
-    console.log(quoteCandidate.text);
 
     this.props.refreshQuote(quoteCandidate);
   }
 
   componentDidMount() {
     this.handleQuotesFetch();
+  }
+
+  tweetifyCurrentQuote () {
+    const TWEET_MAX = 280;
+    let tweet = '"'+this.props.quote.text+'"%20'+this.props.quote.author;
+    if (tweet.length > TWEET_MAX) {
+      let authorLength = this.props.quote.author.length;
+      let quoteTextLength = TWEET_MAX - authorLength - 3;
+      tweet = '"'+this.props.quote.text.substring(0, quoteTextLength)+'"%20'+this.props.quote.author;
+    }
+
+    return('https://twitter.com/intent/tweet?text='+tweet);
   }
 
   render() {
@@ -95,12 +107,12 @@ class Container extends Component {
             <p className="quoteAuthor">{this.props.quote.author}</p>
           </div>
           <div className="QuoteFooter">
-            <Button variant="outline-secondary" onClick={this.handleQuoteRefresh}>Inspire me!</Button>{' '}
-            <Button variant="outline-secondary" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{this.props.quote.text}" data-url="http://neperiana.github.io/random_quote_project" data-hashtags="react-app" data-show-count="false">Tweet</Button><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <Button variant="outline-secondary" onClick={this.handleQuoteRefresh} title="Get me a new quote">Inspire me!</Button>{' '}
+            <Button variant="outline-primary" href={this.tweetifyCurrentQuote()} target="_blank" data-size="large" title="Share this quote on twitter"><FaTwitter /> Share</Button>
           </div>
         </div>
         <div className="Footer">
-          <p>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+          <p>Copyright 2020, camila. Thanks to <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> and <a href="https://type.fit/" title="Type.fit">Type.fit</a>.</p>
         </div>
       </div>
     );
